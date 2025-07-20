@@ -1,0 +1,17 @@
+{
+  "name": "orbit-support-preferences",
+  "version": "1.0.0",
+  "description": "A lightweight Discord bot that lets users set communication preferences using inspired role presets and individual options.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests yet.\""
+  },
+  "keywords": ["discord", "bot", "support", "preferences", "accessibility", "neurodivergent", "orbit"],
+  "author": "Scooperdive",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "discord.js": "^14.13.0"
+  }
+}

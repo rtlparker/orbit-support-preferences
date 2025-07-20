@@ -1,0 +1,36 @@
+{
+  "packs": {
+    "autism": {
+      "name": "Autism Pack",
+      "roles": [
+        "ROLE_ID_AUTISM_SHORT_RESPONSES",
+        "ROLE_ID_AUTISM_CLEAR_FORMATTING"
+      ]
+    },
+    "adhd": {
+      "name": "ADHD Pack",
+      "roles": [
+        "ROLE_ID_ADHD_NOTIFICATIONS",
+        "ROLE_ID_ADHD_TASK_REMINDERS"
+      ]
+    }
+  },
+  "individual": [
+    {
+      "label": "Short Responses",
+      "role": "ROLE_ID_AUTISM_SHORT_RESPONSES"
+    },
+    {
+      "label": "Clear Formatting",
+      "role": "ROLE_ID_AUTISM_CLEAR_FORMATTING"
+    },
+    {
+      "label": "Ping Notifications",
+      "role": "ROLE_ID_ADHD_NOTIFICATIONS"
+    },
+    {
+      "label": "Task Reminders",
+      "role": "ROLE_ID_ADHD_TASK_REMINDERS"
+    }
+  ]
+}
