@@ -1,14 +1,14 @@
 {
   "packs": {
     "autism": {
-      "name": "Autism Pack",
+      "name": "Autism-Inspired Pack",
       "roles": [
         "ROLE_ID_AUTISM_SHORT_RESPONSES",
         "ROLE_ID_AUTISM_CLEAR_FORMATTING"
       ]
     },
     "adhd": {
-      "name": "ADHD Pack",
+      "name": "ADHD-Inspired Pack",
       "roles": [
         "ROLE_ID_ADHD_NOTIFICATIONS",
         "ROLE_ID_ADHD_TASK_REMINDERS"
