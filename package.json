@@ -1,6 +1,6 @@
 {
   "name": "orbit-support-preferences",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A lightweight Discord bot that lets users set communication preferences using inspired role presets and individual options.",
   "main": "index.js",
   "scripts": {
