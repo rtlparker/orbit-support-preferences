@@ -1,0 +1,14 @@
+{
+  "styles": ["Primary", "Secondary", "Success", "Danger", "Link"],
+  "buttons": {
+    "open_preferences": { "label": "Open Preferences", "emoji": "📋", "style": "Primary" },
+    "pack_autism": { "label": "Autism-Inspired Pack", "emoji": "🧩", "style": "Primary" },
+    "pack_adhd": { "label": "ADHD-Inspired Pack", "emoji": "⚡", "style": "Primary" },
+    "pick_individual": { "label": "Pick Individually", "emoji": "🔧", "style": "Secondary" },
+    "confirm": { "label": "Confirm", "emoji": "✅", "style": "Success" },
+    "cancel": { "label": "Cancel", "emoji": "❌", "style": "Danger" },
+    "done": { "label": "Done", "emoji": "✅", "style": "Success" },
+    "individual": { "style": "Secondary" },
+    "remove": { "label": "Remove", "emoji": "🗑️", "style": "Danger" }
+  }
+}
