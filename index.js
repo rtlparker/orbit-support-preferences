@@ -42,11 +42,18 @@ const client = new Client({
 
 const preferencesCommand = new SlashCommandBuilder()
   .setName('preferences')
-  .setDescription('Select communication preference roles');
+  .setDescription('Select communication preference roles')
+  .setDMPermission(true);
 
 const postPanelCommand = new SlashCommandBuilder()
   .setName('postpanel')
-  .setDescription('Post the preferences panel (owner only)');
+  .setDescription('Post the preferences panel (owner only)')
+  .setDMPermission(false);
+
+const clearRolesCommand = new SlashCommandBuilder()
+  .setName('clearroles')
+  .setDescription('Remove all preference roles')
+  .setDMPermission(true);
 
 function buildPreferencesMenu() {
   const disclaimer = new EmbedBuilder()
@@ -69,7 +76,11 @@ function buildPreferencesMenu() {
     new ButtonBuilder()
       .setCustomId('pick_individual')
       .setLabel('Pick Individually')
-      .setStyle(ButtonStyle.Secondary)
+      .setStyle(ButtonStyle.Secondary),
+    new ButtonBuilder()
+      .setCustomId('remove_all')
+      .setLabel('Remove All')
+      .setStyle(ButtonStyle.Danger)
   );
 
   return { embeds: [disclaimer], components: [row] };
@@ -79,7 +90,11 @@ async function registerCommands() {
   const rest = new REST({ version: '10' }).setToken(token);
   try {
     await rest.put(Routes.applicationCommands(clientId), {
-      body: [preferencesCommand.toJSON(), postPanelCommand.toJSON()]
+      body: [
+        preferencesCommand.toJSON(),
+        postPanelCommand.toJSON(),
+        clearRolesCommand.toJSON()
+      ]
     });
     console.log('Registered application commands');
   } catch (err) {
@@ -133,6 +148,35 @@ client.on(Events.InteractionCreate, async interaction => {
         .setStyle(ButtonStyle.Primary)
     );
     await interaction.reply({ embeds: [embed], components: [row] });
+  } else if (interaction.commandName === 'clearroles') {
+    if (interaction.channel.type !== ChannelType.DM) {
+      await interaction.reply({
+        content: 'Please DM me to use this command.',
+        ephemeral: true
+      });
+      return;
+    }
+
+    try {
+      const guild = await client.guilds.fetch(guildId);
+      const member = await guild.members.fetch(interaction.user.id);
+      const roleIds = Array.from(
+        new Set([
+          ...Object.values(roleData.packs).flatMap(p => p.roles),
+          ...roleData.individual.map(r => r.role)
+        ])
+      );
+      await member.roles.remove(roleIds);
+      await interaction.reply({
+        content: 'Preference roles removed.',
+        ephemeral: false
+      });
+    } catch {
+      await interaction.reply({
+        content: 'Failed to remove roles.',
+        ephemeral: false
+      });
+    }
   }
 });
 
@@ -154,6 +198,29 @@ client.on(Events.InteractionCreate, async interaction => {
     return;
   }
 
+  if (interaction.customId === 'remove_all') {
+    try {
+      const guild = await client.guilds.fetch(guildId);
+      const member = await guild.members.fetch(interaction.user.id);
+      const roleIds = Array.from(
+        new Set([
+          ...Object.values(roleData.packs).flatMap(p => p.roles),
+          ...roleData.individual.map(r => r.role)
+        ])
+      );
+      await member.roles.remove(roleIds);
+      await interaction.reply({
+        content: 'Preference roles removed.',
+        ephemeral: interaction.inGuild()
+      });
+    } catch {
+      await interaction.reply({
+        content: 'Failed to remove roles.',
+        ephemeral: interaction.inGuild()
+      });
+    }
+    return;
+  }
   if (interaction.customId.startsWith('pack_')) {
     const packKey = interaction.customId.replace('pack_', '');
     const pack = roleData.packs[packKey];
